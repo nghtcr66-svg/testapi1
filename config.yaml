@@ -1,0 +1,9 @@
+name: "Test API"
+version: "1.0.0"
+slug: test_api
+description: FastAPI сервер
+arch: [amd64, aarch64]
+startup: application
+boot: auto
+ports:
+  5757/tcp: 5757

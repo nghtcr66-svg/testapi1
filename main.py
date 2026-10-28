@@ -3,8 +3,23 @@ import uvicorn
 from pydantic import BaseModel, ConfigDict
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker, Session
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
+
+
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Разрешить запросы с любых сайтов
+    allow_credentials=True,
+    allow_methods=["*"],  # Разрешить любые HTTP-методы (GET, POST и т.д.)
+    allow_headers=["*"],  # Разрешить любые HTTP-заголовки
+)
 
 engine = create_engine('sqlite:///db.sqlite3')
 
@@ -97,4 +112,8 @@ def get_user_by_id(
 
 
 if __name__ == '__main__':
-    uvicorn.run(app)
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=5757,
+        reload=True)
